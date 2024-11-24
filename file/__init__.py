@@ -1,6 +1,7 @@
 import os
 import shutil
 import pathlib
+import hashlib
 
 
 class File:
@@ -120,6 +121,26 @@ class File:
             return self.__rm_directory(self.__path, recursive)
         else:
             return self.__rm_file(self.__path)
+
+    def hash(self, algorithm: str = "sha256"):
+        """
+        파일의 해시 값을 반환함.
+        지원하는 알고리즘: 'md5', 'sha1', 'sha224', 'sha256', 'sha384', 'sha512',
+                      'blake2b', 'blake2s',
+                      'sha3_224', 'sha3_256', 'sha3_384', 'sha3_512',
+                      'shake_128', 'shake_256'
+        :param: algorithm (str): 해시 알고리즘 (기본 값: 'sha256')
+        :return (str): 파일 해시값
+        """
+        if not self.is_file:
+            return ""
+
+        with open(self.__path, "rb") as f:
+            hash_algorithm = hashlib.new(algorithm)
+            while chunk := f.read(4096):
+                hash_algorithm.update(chunk)
+
+            return hash_algorithm.hexdigest()
 
     @staticmethod
     def __rm_directory(path: str, recursive: bool = False) -> bool:

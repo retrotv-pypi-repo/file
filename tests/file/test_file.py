@@ -112,3 +112,8 @@ class TestFile:
         f = File(os.path.join(self.__resource_abs_dir, "testdir"))
         f.rm(True)
 
+    def test_hash(self):
+        assert self.__directory1.hash() == ""
+
+        assert self.__file1.hash() == "c4262018183408ce4bf05652ab8d2f599b7d6040cb319ed71794bd98a030b55c"
+        assert self.__file1.hash("sha256") == "c4262018183408ce4bf05652ab8d2f599b7d6040cb319ed71794bd98a030b55c"
