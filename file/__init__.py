@@ -1,4 +1,5 @@
 import os
+import shutil
 import pathlib
 
 
@@ -108,3 +109,38 @@ class File:
         지정한 경로까지 재귀적으로 생성합니다.
         """
         os.makedirs(self.__path, exist_ok=True)
+
+    def rm(self, recursive: bool = False) -> bool:
+        """
+        파일 또는 디렉터리를 삭제함.
+        :param: recursive (bool): 디렉터리를 재귀적으로 삭제할지 여부
+        :return (bool): 삭제 성공 여부
+        """
+        if self.is_directory:
+            self.__rm_directory(self.__path, recursive)
+        else:
+            return self.__rm_file(self.__path)
+
+    @staticmethod
+    def __rm_directory(path: str, recursive: bool = False) -> bool:
+        try:
+            if recursive:
+                # 디렉터리 내부 파일 및 디렉터리 삭제
+                shutil.rmtree(path)
+            elif os.path.isdir(path):
+                # 빈 디렉터리 삭제 (디렉터리가 비어있지 않으면 삭제되지 않음)
+                os.rmdir(path)
+            else:
+                # 파일 삭제
+                os.remove(path)
+            return True
+        except OSError:
+            return False
+
+    @staticmethod
+    def __rm_file(path: str) -> bool:
+        try:
+            os.remove(path)
+            return True
+        except OSError:
+            return False

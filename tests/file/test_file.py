@@ -68,9 +68,9 @@ class TestFile:
     def test_size(self):
         assert self.__file1.size == 23
         assert self.__file2.size == 380
-        assert self.__directory1.size == 0 or self.__directory1.size == 4096
+        assert self.__directory1.size == 0 or self.__directory1.size == 96 or self.__directory1.size == 4096
 
-    def test_mkdir(self):
+    def test_mkdir_and_rm(self):
         f = File(os.path.join(self.__resource_abs_dir, "testdir/innerdir"))
         f.mkdir()
 
@@ -80,10 +80,8 @@ class TestFile:
         inner_directory = File(os.path.join(self.__resource_abs_dir, "testdir/innerdir"))
         assert inner_directory.is_exist
 
-        if os.path.exists(os.path.join(self.__resource_abs_dir, "testdir", "innerdir")):
+        inner_directory.rm()
+        assert False == inner_directory.is_exist
 
-            # os.rmdir -> 디렉토리 삭제, os.remove -> 파일 삭제
-            os.rmdir(os.path.join(self.__resource_abs_dir, "testdir", "innerdir"))
-
-        if os.path.exists(os.path.join(self.__resource_abs_dir, "testdir")):
-            os.rmdir(os.path.join(self.__resource_abs_dir, "testdir"))
+        directory.rm()
+        assert False == directory.is_exist
