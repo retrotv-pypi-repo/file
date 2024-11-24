@@ -80,6 +80,10 @@ class TestFile:
         inner_directory = File(os.path.join(self.__resource_abs_dir, "testdir/innerdir"))
         assert inner_directory.is_exist
 
+        result = directory.rm()
+        assert not result
+        assert True == directory.is_exist
+
         inner_directory.rm()
         assert False == inner_directory.is_exist
 
