@@ -101,3 +101,14 @@ class TestFile:
 
         directory.rm()
         assert not directory.is_exist
+
+        # "resources/testdir/innerdir" 디렉터리 생성
+        f = File(os.path.join(self.__resource_abs_dir, "testdir/innerdir"))
+        f.mkdir()
+
+        # "resources/testdir/innerdir/test.txt" 파일 생성
+        Path(os.path.join(self.__resource_abs_dir, "testdir/innerdir/test.txt")).touch()
+
+        f = File(os.path.join(self.__resource_abs_dir, "testdir"))
+        f.rm(True)
+
