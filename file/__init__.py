@@ -127,13 +127,9 @@ class File:
             if recursive:
                 # 디렉터리 내부 파일 및 디렉터리 삭제
                 shutil.rmtree(path)
-            elif os.path.isdir(path):
+            else:
                 # 빈 디렉터리 삭제 (디렉터리가 비어있지 않으면 삭제되지 않음)
                 os.rmdir(path)
-            else:
-                # 파일 삭제
-                os.remove(path)
-            return True
         except OSError:
             return False
 
