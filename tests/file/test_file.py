@@ -3,6 +3,7 @@ import platform
 import pytest
 
 from file import File
+from pathlib import Path
 
 class TestFile:
     __resource_abs_dir = os.path.join(
@@ -71,21 +72,32 @@ class TestFile:
         assert self.__directory1.size == 0 or self.__directory1.size == 96 or self.__directory1.size == 4096
 
     def test_mkdir_and_rm(self):
+
+        # "resources/testdir/innerdir" 디렉터리 생성
         f = File(os.path.join(self.__resource_abs_dir, "testdir/innerdir"))
         f.mkdir()
 
+        # "resources/testdir/innerdir/test.txt" 파일 생성
+        Path(os.path.join(self.__resource_abs_dir, "testdir/innerdir/test.txt")).touch()
+
+        file = File(os.path.join(self.__resource_abs_dir, "testdir/innerdir/test.txt"))
+        assert file.is_exist
+
         directory = File(os.path.join(self.__resource_abs_dir, "testdir"))
-        assert True == directory.is_exist
+        assert directory.is_exist
 
         inner_directory = File(os.path.join(self.__resource_abs_dir, "testdir/innerdir"))
         assert inner_directory.is_exist
 
         result = directory.rm()
         assert not result
-        assert True == directory.is_exist
+        assert directory.is_exist
+
+        file.rm()
+        assert not file.is_exist
 
         inner_directory.rm()
-        assert False == inner_directory.is_exist
+        assert not inner_directory.is_exist
 
         directory.rm()
-        assert False == directory.is_exist
+        assert not directory.is_exist
