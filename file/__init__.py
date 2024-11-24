@@ -32,7 +32,7 @@ class File:
         if extensions_len == 0:
             return ""
         elif extensions_len == 1:
-            return extensions[0][1:]
+            return extensions.pop()[1:]
         else:
             ex = ""
             for extension in extensions:
@@ -117,7 +117,7 @@ class File:
         :return (bool): 삭제 성공 여부
         """
         if self.is_directory:
-            self.__rm_directory(self.__path, recursive)
+            return self.__rm_directory(self.__path, recursive)
         else:
             return self.__rm_file(self.__path)
 
@@ -132,6 +132,8 @@ class File:
                 os.rmdir(path)
         except OSError:
             return False
+
+        return True
 
     @staticmethod
     def __rm_file(path: str) -> bool:
