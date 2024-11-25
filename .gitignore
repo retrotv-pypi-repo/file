@@ -1,6 +1,10 @@
 .tox
 .idea
 __pycache__
+build
+dist
+file.egg-info
 
 .coverage
 coverage.xml
+.pypirc
