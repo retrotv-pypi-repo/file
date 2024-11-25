@@ -3,7 +3,7 @@
 __pycache__
 build
 dist
-file.egg-info
+retrotv_file.egg-info
 
 .coverage
 coverage.xml
