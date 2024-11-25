@@ -2,7 +2,7 @@ import os
 import platform
 import pytest
 
-from file import File
+from file import File, HashError
 from pathlib import Path
 
 class TestFile:
@@ -117,3 +117,8 @@ class TestFile:
 
         assert self.__file1.hash() == "c4262018183408ce4bf05652ab8d2f599b7d6040cb319ed71794bd98a030b55c"
         assert self.__file1.hash("sha256") == "c4262018183408ce4bf05652ab8d2f599b7d6040cb319ed71794bd98a030b55c"
+
+        try:
+            File(os.path.join(self.__resource_abs_dir, "testdir/innerdir/null.txt")).hash()
+        except HashError as ex:
+            assert str(ex) == "해시값을 생성할 수 없습니다."
