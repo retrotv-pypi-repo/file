@@ -7,4 +7,3 @@ file.egg-info
 
 .coverage
 coverage.xml
-.pypirc
