@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="retrotv-file",
-    version="v0.0.2-alpha",
+    version="v0.0.3-alpha",
     description="파일을 편하게 다루기 위한 패키지",
     author="RetroTV",
     author_email="yjj8353@gmail.com",

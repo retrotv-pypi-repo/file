@@ -7,6 +7,7 @@ from pathlib import Path
 
 class TestFile:
     __resource_abs_dir = os.path.join(
+
           # test_file.py가 존재하는 디렉터리 경로
           os.path.dirname(os.path.realpath(__file__))
 
