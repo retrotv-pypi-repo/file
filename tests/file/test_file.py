@@ -122,3 +122,7 @@ class TestFile:
             File(os.path.join(self.__resource_abs_dir, "testdir/innerdir/null.txt")).hash()
         except HashError as ex:
             assert str(ex) == "해시값을 생성할 수 없습니다."
+
+    def test_match(self):
+        assert self.__file1.match(self.__file1)
+        assert not self.__file1.match(self.__file2)
