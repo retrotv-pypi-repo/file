@@ -175,9 +175,9 @@ class File:
         except Exception:
             raise HashError
 
-    def match(self, file, algorithm: str = "sha256") -> bool:
+    def matches(self, file, algorithm: str = "sha256") -> bool:
         """
-        동일한 파일인지 여부를 반환함.
+        두 파일의 해시 값을 비교하여 동일한 파일인지 여부를 반환함.
 
         Args:
             file (File): 비교할 파일
@@ -191,6 +191,23 @@ class File:
             return False
 
         return self.hash(algorithm) == file.hash(algorithm)
+
+    def matches_deep(self, file) -> bool:
+        """
+        두 파일의 바이너리를 비교하여 동일한 파일인지 여부를 반환함.
+
+        Args:
+            file (File): 비교할 파일
+
+        Returns:
+            bool: 동일파일 여부
+        """
+        if type(file) is not File:
+            return False
+
+        with open(self.__path, "rb") as f:
+            with open(file.path, "rb") as f2:
+                return f.read() == f2.read()
 
     @staticmethod
     def __rm_directory(path: str, recursive: bool = False) -> bool:

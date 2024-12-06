@@ -125,5 +125,9 @@ class TestFile:
             assert str(ex) == "해시값을 생성할 수 없습니다."
 
     def test_match(self):
-        assert self.__file1.match(self.__file1)
-        assert not self.__file1.match(self.__file2)
+        assert self.__file1.matches(self.__file1)
+        assert not self.__file1.matches(self.__file2)
+
+    def test_match_deep(self):
+        assert self.__file1.matches_deep(self.__file1)
+        assert not self.__file1.matches_deep(self.__file2)
